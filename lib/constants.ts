@@ -15,12 +15,12 @@ export const NAV_LINKS = [
 export const JSON_LD_BASE = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
-  '@id': 'https://yannick-decors.fr',
+  '@id': 'https://yannickdecors.netlify.app',
   name: 'Yannick Décors',
   description: 'Artisan peintre indépendant en Normandie — Peinture intérieure, extérieure, enduits, revêtements.',
   telephone: '+33622740767',
   email: 'yannick.pichou@sfr.fr',
-  url: 'https://yannick-decors.fr',
+  url: 'https://yannickdecors.netlify.app',
   priceRange: '€€',
   address: {
     '@type': 'PostalAddress',

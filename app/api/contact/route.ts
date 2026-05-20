@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
           </tr>
         </table>
         <p style="margin-top:32px;font-size:12px;color:#9CA0AB">
-          Envoyé depuis yannick-decors.fr
+          Envoyé depuis yannickdecors.netlify.app
         </p>
       </div>
     `

@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { articles } from '@/lib/blog-data'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = 'https://yannick-decors.fr'
+  const base = 'https://yannickdecors.netlify.app'
   const now  = new Date()
 
   const staticPages: MetadataRoute.Sitemap = [
