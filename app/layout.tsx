@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { JSON_LD_BASE } from '@/lib/constants'
+import PageTransition from '@/components/PageTransition'
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -57,11 +58,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD_BASE) }}
         />
       </head>
-      <body className="font-body bg-cream text-dark antialiased">
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-      </body>
+      import PageTransition from '@/components/PageTransition'
+
+<body className="font-body bg-cream text-dark antialiased">
+  <Navbar />
+  <main>
+    <PageTransition>
+      {children}
+    </PageTransition>
+  </main>
+  <Footer />
+</body>
     </html>
   )
 }

@@ -32,12 +32,12 @@ export default function Footer() {
           {/* Logo + description */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" aria-label="Yannick Décors — Accueil">
-              <div className="relative h-14 w-44 mb-6">
+              <div className="relative h-32 w-80 mb-6">
                 <Image
-                  src="/logo-yannick-decors.svg"
+                  src="/logo-yannick-decors-footer.png"
                   alt="Logo Yannick Décors Artisan Peintre"
                   fill
-                  className="object-contain object-left brightness-0 invert opacity-80"
+                  className="object-contain object-left opacity-90"
                 />
               </div>
             </Link>

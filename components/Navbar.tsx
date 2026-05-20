@@ -34,12 +34,12 @@ export default function Navbar() {
       </div>
 
       <header
-        className={`sticky top-0 z-50 transition-all duration-300 ${
-          scrolled
-  ? 'bg-white/80 backdrop-blur-md shadow-[0_2px_0_0_#D6D4CE]'
-  : 'bg-white/70 backdrop-blur-md border-b border-gray-100'
-        }`}
-      >
+  className={`sticky top-0 z-50 transition-all duration-300 ${
+    scrolled
+      ? 'bg-cream/97 backdrop-blur-sm shadow-[0_2px_0_0_#D6D4CE]'
+      : 'bg-cream border-b-2 border-border'
+  }`}
+>
         <div className="container-site">
           <div className="flex items-center justify-between h-[72px] gap-6">
 
@@ -65,8 +65,8 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     className={`px-4 py-2 font-body font-medium text-base transition-colors relative group ${
-                      active ? 'text-terra' : 'text-dark hover:text-terra'
-                    }`}
+  active ? 'text-terra' : 'text-dark hover:text-terra'
+}`}
                   >
                     {link.label}
                     <span

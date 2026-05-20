@@ -50,26 +50,63 @@
 @layer components {
   /* Boutons */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 bg-terra hover:bg-terra-dk text-white font-body font-semibold text-base px-8 transition-colors duration-200 cursor-pointer;
-    min-height: 52px;
-    font-size: 17px;
-  }
+  @apply inline-flex items-center justify-center gap-2 bg-terra hover:bg-terra-dk text-white font-body font-semibold text-base px-8 transition-all duration-200 cursor-pointer;
+  min-height: 52px;
+  font-size: 17px;
+  transform: translateY(0);
+  animation: pulse-terra 2s ease-in-out infinite;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(196, 149, 106, 0.35);
+}
+.btn-primary:active {
+  transform: translateY(0px);
+}
+@keyframes pulse-terra {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(196, 149, 106, 0.6); }
+  50% { box-shadow: 0 0 0 12px rgba(196, 149, 106, 0); }
+}
   .btn-slate {
-    @apply inline-flex items-center justify-center gap-2 bg-slate hover:bg-slate-dk text-white font-body font-semibold text-base px-8 transition-colors duration-200 cursor-pointer;
-    min-height: 52px;
-    font-size: 17px;
-  }
+  @apply inline-flex items-center justify-center gap-2 bg-slate hover:bg-slate-dk text-white font-body font-semibold text-base px-8 transition-all duration-200 cursor-pointer;
+  min-height: 52px;
+  font-size: 17px;
+  transform: translateY(0);
+}
+.btn-slate:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(61, 68, 81, 0.4);
+}
+.btn-slate:active {
+  transform: translateY(0px);
+}
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 border-2 border-slate text-slate hover:bg-slate hover:text-white font-body font-semibold text-base px-8 transition-colors duration-200 cursor-pointer;
-    min-height: 52px;
-    font-size: 17px;
-  }
+  @apply inline-flex items-center justify-center gap-2 border-2 border-slate text-slate hover:bg-slate hover:text-white font-body font-semibold text-base px-8 transition-all duration-200 cursor-pointer;
+  min-height: 52px;
+  font-size: 17px;
+  transform: translateY(0);
+}
+.btn-outline:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(61, 68, 81, 0.2);
+}
+.btn-outline:active {
+  transform: translateY(0px);
+}
   .btn-phone {
-    @apply inline-flex items-center justify-center gap-3 bg-terra hover:bg-terra-dk text-white font-body font-bold transition-colors duration-200 cursor-pointer;
-    min-height: 56px;
-    font-size: 19px;
-    padding: 0 32px;
-  }
+  @apply inline-flex items-center justify-center gap-3 bg-terra hover:bg-terra-dk text-white font-body font-bold transition-all duration-200 cursor-pointer;
+  min-height: 56px;
+  font-size: 19px;
+  padding: 0 32px;
+  transform: translateY(0);
+}
+.btn-phone:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(196, 149, 106, 0.35);
+}
+.btn-phone:active {
+  transform: translateY(0px);
+}
 
   /* Conteneur */
   .container-site {
