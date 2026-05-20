@@ -28,10 +28,16 @@ export const metadata: Metadata = {
     'peintre Saint Opportune du Bosc',
   ],
   openGraph: {
-    type: 'website',
-    locale: 'fr_FR',
-    siteName: 'Yannick Décors',
-  },
+  type: 'website',
+  locale: 'fr_FR',
+  siteName: 'Yannick Décors',
+  images: [{ 
+    url: '/og-image.jpg', 
+    width: 1200, 
+    height: 630,
+    alt: 'Yannick Décors — Artisan Peintre en Normandie'
+  }],
+},
   robots: { index: true, follow: true },
   icons: {
   icon: '/yannick-decors-favicon.png',

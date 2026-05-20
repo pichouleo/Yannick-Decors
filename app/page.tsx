@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: 'Yannick Décors | Artisan Peintre en Normandie — Eure et Seine-Maritime',
   description:
     'Artisan peintre indépendant basé au Neubourg. Peinture intérieure, extérieure, enduits et revêtements dans un rayon de 70km. Devis gratuit.',
+    alternates: {
+    canonical: 'https://yannickdecors.pro',
+},
 }
 
 export default function HomePage() {

@@ -15,6 +15,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: `${article.title} | Blog Yannick Décors`,
     description: article.excerpt,
+    alternates: {
+      canonical: `https://yannickdecors.pro/blog/${params.slug}`,
+    },
   }
 }
 

@@ -4,10 +4,13 @@ import { articles } from '@/lib/blog-data'
 import { BrushUnderline } from '@/components/BrushStroke'
 
 export const metadata: Metadata = {
-  title: 'Blog peinture et décoration Normandie | Yannick Décors',
-  description:
-    'Conseils, tendances et guides pratiques sur la peinture et la décoration en Normandie par votre artisan peintre local.',
+  title: 'Blog Peinture Normandie | Yannick Décors',
+  description: 'Conseils, tendances et guides pratiques sur la peinture et la décoration en Normandie par votre artisan peintre local.',
+  alternates: {
+    canonical: 'https://yannickdecors.pro/blog',
+  },
 }
+
 
 const catColors: Record<string, string> = {
   Conseils:   'bg-terra/10 text-terra border-terra/30',
