@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: #F5F4F0;
+    color: #2A2A2A;
+    font-family: var(--font-dm-sans), system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-caveat), cursive;
+    color: #2A2A2A;
+    line-height: 1.15;
+  }
+  .font-title {
+  font-weight: 400;
+}
+  p, li, label, input, textarea, select, button {
+    font-size: 17px;
+    line-height: 1.65;
+  }
+
+  * { border-radius: 0 !important; }
+
+  input, textarea, select {
+    background-color: #F5F4F0;
+    border: 2px solid #D6D4CE;
+    color: #2A2A2A;
+    padding: 14px 16px;
+    width: 100%;
+    font-size: 17px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input:focus, textarea:focus, select:focus {
+    border-color: #3D4451;
+  }
+  input::placeholder, textarea::placeholder {
+    color: #9CA0AB;
+  }
+}
+
+@layer components {
+  /* Boutons */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-terra hover:bg-terra-dk text-white font-body font-semibold text-base px-8 transition-colors duration-200 cursor-pointer;
+    min-height: 52px;
+    font-size: 17px;
+  }
+  .btn-slate {
+    @apply inline-flex items-center justify-center gap-2 bg-slate hover:bg-slate-dk text-white font-body font-semibold text-base px-8 transition-colors duration-200 cursor-pointer;
+    min-height: 52px;
+    font-size: 17px;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 border-2 border-slate text-slate hover:bg-slate hover:text-white font-body font-semibold text-base px-8 transition-colors duration-200 cursor-pointer;
+    min-height: 52px;
+    font-size: 17px;
+  }
+  .btn-phone {
+    @apply inline-flex items-center justify-center gap-3 bg-terra hover:bg-terra-dk text-white font-body font-bold transition-colors duration-200 cursor-pointer;
+    min-height: 56px;
+    font-size: 19px;
+    padding: 0 32px;
+  }
+
+  /* Conteneur */
+  .container-site {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Sections */
+  .section-cream { @apply bg-cream; }
+  .section-slate  { @apply bg-slate; }
+
+  /* Titre de section */
+  .section-tag {
+    @apply inline-block font-body font-semibold text-base tracking-widest uppercase text-terra mb-3;
+    letter-spacing: 0.12em;
+  }
+  .section-h2 {
+    @apply font-title text-5xl md:text-6xl text-dark mb-5;
+  }
+  .section-h2-light {
+    @apply font-title text-5xl md:text-6xl text-cream mb-5;
+  }
+  .section-lead {
+    @apply text-muted text-lg leading-relaxed max-w-2xl;
+  }
+
+  /* Ligne de séparation accent */
+  .accent-line {
+    @apply block w-16 h-0.5 bg-terra mt-4 mb-8;
+  }
+}
