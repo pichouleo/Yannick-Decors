@@ -113,14 +113,17 @@ export default function RealisationsPage() {
             Contactez-moi pour un devis gratuit. Je me déplace dans un rayon de 70km autour du Neubourg.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="btn-primary text-xl px-10" style={{ minHeight: '60px' }}>
-              Demander mon devis gratuit
-            </Link>
-            <a href={PHONE_HREF} className="btn-phone text-xl px-10" style={{ minHeight: '60px' }}>
-              <PhoneIcon className="w-6 h-6" />
-              {PHONE_DISPLAY}
-            </a>
-          </div>
+  <Link href="/contact" className="btn-primary text-xl px-10" style={{ minHeight: '60px' }}>
+    Demander mon devis gratuit
+  </Link>
+  <a href={PHONE_HREF} className="btn-phone text-xl px-10" style={{ minHeight: '60px' }}>
+    <PhoneIcon className="w-6 h-6" />
+    {PHONE_DISPLAY}
+  </a>
+  <Link href="/services" className="btn-outline border-cream text-cream hover:bg-cream hover:text-slate text-xl px-10" style={{ minHeight: '60px' }}>
+    Voir nos services
+  </Link>
+</div>
         </div>
       </section>
     </>

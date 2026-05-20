@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { BrushUnderline } from '@/components/BrushStroke'
 import { PHONE_DISPLAY, PHONE_HREF, EMAIL, ADDRESS, ZONE } from '@/lib/constants'
+import Link from 'next/link'
 
 const schema = z.object({
   nom:       z.string().min(2, 'Votre nom est requis'),
@@ -170,6 +171,21 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+      {/* Liens internes */}
+      <section className="bg-cream py-12 border-t-2 border-border">
+        <div className="container-site">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Link href="/services" className="flex items-center justify-between p-6 border-2 border-border hover:border-terra hover:text-terra transition-colors">
+              <span className="font-body font-semibold text-lg">Voir nos services</span>
+              <svg className="w-5 h-5 text-terra" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+            </Link>
+            <Link href="/realisations" className="flex items-center justify-between p-6 border-2 border-border hover:border-terra hover:text-terra transition-colors">
+              <span className="font-body font-semibold text-lg">Voir nos réalisations</span>
+              <svg className="w-5 h-5 text-terra" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+            </Link>
           </div>
         </div>
       </section>

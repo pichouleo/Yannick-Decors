@@ -142,7 +142,26 @@ export default function ServicesPage() {
           </div>
         </section>
       ))}
-
+      {/* Liens internes */}
+<section className="bg-cream py-12 border-t-2 border-border">
+  <div className="container-site">
+    <p className="font-title text-2xl text-dark mb-8 text-center">Découvrez aussi</p>
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <Link href="/realisations" className="flex items-center justify-between p-6 border-2 border-border hover:border-terra hover:text-terra transition-colors group">
+        <span className="font-body font-semibold text-lg">Nos réalisations</span>
+        <ArrowIcon className="w-5 h-5 text-terra" />
+      </Link>
+      <Link href="/blog" className="flex items-center justify-between p-6 border-2 border-border hover:border-terra hover:text-terra transition-colors group">
+        <span className="font-body font-semibold text-lg">Blog & conseils</span>
+        <ArrowIcon className="w-5 h-5 text-terra" />
+      </Link>
+      <Link href="/contact" className="flex items-center justify-between p-6 border-2 border-border hover:border-terra hover:text-terra transition-colors group">
+        <span className="font-body font-semibold text-lg">Demander un devis</span>
+        <ArrowIcon className="w-5 h-5 text-terra" />
+      </Link>
+    </div>
+  </div>
+</section>
       {/* CTA bas de page */}
       <section className="bg-slate py-20 border-t-2 border-white/10">
         <div className="container-site text-center">
