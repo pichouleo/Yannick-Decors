@@ -5,7 +5,7 @@ import { BrushDivider, BrushAccent, BrushUnderline } from '@/components/BrushStr
 import { PHONE_DISPLAY, PHONE_HREF, EMAIL, ADDRESS } from '@/lib/constants'
 
 export const metadata: Metadata = {
-  title: 'Yannick Décors | Artisan Peintre Normandie',
+  title: 'Yannick Décors | Artisan Peintre Normandie Le Neubourg',
   description: 'Artisan peintre indépendant basé au Neubourg. Peinture intérieure, extérieure, enduits et revêtements dans un rayon de 70km. Devis gratuit.',
   alternates: {
     canonical: 'https://yannickdecors.pro',
