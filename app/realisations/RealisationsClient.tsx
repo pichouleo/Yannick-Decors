@@ -4,25 +4,25 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { PHONE_HREF, PHONE_DISPLAY } from '@/lib/constants'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const categories = ['Tous', 'Intérieur', 'Extérieur', 'Enduits', 'Revêtements'] as const
 type Cat = typeof categories[number]
 
 const realisations = [
-  { src: '/images/gallery/interieur-salon.svg',    alt: 'Peinture intérieure salon — finition velours blanc cassé, Évreux',            label: 'Salon — Évreux',               cat: 'Intérieur'   },
-  { src: '/images/gallery/interieur-chambre.svg',  alt: 'Peinture chambre vert sauge — finition mate, Le Neubourg',                    label: 'Chambre — Le Neubourg',        cat: 'Intérieur'   },
-  { src: '/images/gallery/facade-colombages.svg',  alt: 'Ravalement façade colombages normands — Bernay',                              label: 'Façade colombages — Bernay',   cat: 'Extérieur'   },
-  { src: '/images/gallery/volets-boiseries.svg',   alt: 'Peinture volets terracotta et boiseries — Conches-en-Ouche',                  label: 'Volets — Conches-en-Ouche',    cat: 'Extérieur'   },
-  { src: '/images/gallery/enduit-lissage.svg',     alt: 'Enduit de lissage mur abîmé — préparation avant peinture, Brionne',          label: 'Enduit lissage — Brionne',     cat: 'Enduits'     },
-  { src: '/images/gallery/papier-peint.svg',        alt: 'Pose papier peint panoramique — Louviers',                                   label: 'Papier peint — Louviers',      cat: 'Revêtements' },
-  { src: '/images/gallery/interieur-salon.svg',    alt: 'Peinture cuisine semi-brillante — Pont-Audemer',                              label: 'Cuisine — Pont-Audemer',       cat: 'Intérieur'   },
-  { src: '/images/gallery/enduit-lissage.svg',     alt: 'Enduit plafond salle de bain — finition lisse, Bourg-Achard',                 label: 'Plafond SdB — Bourg-Achard',  cat: 'Enduits'     },
-  { src: '/images/gallery/volets-boiseries.svg',   alt: 'Parquet stratifié pose dans salon — Elbeuf',                                 label: 'Parquet — Elbeuf',             cat: 'Revêtements' },
+  { src: '/images/gallery/interieur-salon.svg',   alt: 'Peinture intérieure salon — finition velours blanc cassé, Évreux',   label: 'Salon — Évreux',             cat: 'Intérieur'   },
+  { src: '/images/gallery/interieur-chambre.svg', alt: 'Peinture chambre vert sauge — finition mate, Le Neubourg',           label: 'Chambre — Le Neubourg',      cat: 'Intérieur'   },
+  { src: '/images/gallery/facade-colombages.svg', alt: 'Ravalement façade colombages normands — Bernay',                     label: 'Façade colombages — Bernay', cat: 'Extérieur'   },
+  { src: '/images/gallery/volets-boiseries.svg',  alt: 'Peinture volets terracotta et boiseries — Conches-en-Ouche',         label: 'Volets — Conches-en-Ouche', cat: 'Extérieur'   },
+  { src: '/images/gallery/enduit-lissage.svg',    alt: 'Enduit de lissage mur abîmé — préparation avant peinture, Brionne', label: 'Enduit lissage — Brionne',   cat: 'Enduits'     },
+  { src: '/images/gallery/papier-peint.svg',      alt: 'Pose papier peint panoramique — Louviers',                           label: 'Papier peint — Louviers',    cat: 'Revêtements' },
+  { src: '/images/gallery/interieur-salon.svg',   alt: 'Peinture cuisine semi-brillante — Pont-Audemer',                     label: 'Cuisine — Pont-Audemer',     cat: 'Intérieur'   },
+  { src: '/images/gallery/enduit-lissage.svg',    alt: 'Enduit plafond salle de bain — finition lisse, Bourg-Achard',        label: 'Plafond SdB — Bourg-Achard',cat: 'Enduits'     },
+  { src: '/images/gallery/volets-boiseries.svg',  alt: 'Parquet stratifié pose dans salon — Elbeuf',                         label: 'Parquet — Elbeuf',           cat: 'Revêtements' },
 ]
 
-export default function RealisationsPage() {
+export default function RealisationsClient() {
   const [activeCat, setActiveCat] = useState<Cat>('Tous')
-
   const filtered = activeCat === 'Tous' ? realisations : realisations.filter((r) => r.cat === activeCat)
 
   return (
@@ -30,15 +30,33 @@ export default function RealisationsPage() {
       {/* Header */}
       <section className="bg-slate py-20">
         <div className="container-site">
-          <span className="section-tag text-terra/80">Portfolio</span>
-          <h1 className="font-title text-cream mb-6" style={{ fontSize: 'clamp(48px, 7vw, 80px)' }}>
+          <motion.span
+            className="section-tag text-terra/80"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            Portfolio
+          </motion.span>
+          <motion.h1
+            className="font-title text-cream mb-6"
+            style={{ fontSize: 'clamp(48px, 7vw, 80px)' }}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
             Nos réalisations
             <br />
             <span className="text-terra">en Normandie</span>
-          </h1>
-          <p className="text-cream/60 text-xl max-w-2xl">
+          </motion.h1>
+          <motion.p
+            className="text-cream/60 text-xl max-w-2xl"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
             Chaque chantier est unique. Découvrez quelques exemples de travaux réalisés par Yannick Décors en Normandie.
-          </p>
+          </motion.p>
         </div>
       </section>
 
@@ -66,38 +84,45 @@ export default function RealisationsPage() {
       {/* Grille */}
       <section className="bg-cream py-16">
         <div className="container-site">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-0 border-2 border-border">
-            {filtered.map((item, i) => (
-              <div
-                key={`${item.src}-${i}`}
-                className={`relative aspect-[4/3] overflow-hidden group ${
-                  i % 3 < 2 ? 'border-r-0 sm:border-r-2 border-border' : ''
-                } border-b-2 border-border last:border-b-0`}
-                style={{
-                  borderRight: (i + 1) % 3 !== 0 ? '2px solid #D6D4CE' : 'none',
-                  borderBottom: i < filtered.length - (filtered.length % 3 || 3) ? '2px solid #D6D4CE' : 'none',
-                }}
-              >
-                <Image
-                  src={item.src}
-                  alt={item.alt}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-slate/0 group-hover:bg-slate/50 transition-all duration-300" />
-                {/* Label */}
-                <div className="absolute top-3 left-3">
-                  <span className="bg-white/90 text-dark text-sm font-body font-semibold px-3 py-1">
-                    {item.cat}
-                  </span>
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate to-transparent p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <p className="text-cream font-body font-semibold text-base">{item.label}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeCat}
+              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-0 border-2 border-border"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4 }}
+            >
+              {filtered.map((item, i) => (
+                <motion.div
+                  key={`${item.src}-${i}`}
+                  className={`relative aspect-[4/3] overflow-hidden group`}
+                  style={{
+                    borderRight: (i + 1) % 3 !== 0 ? '2px solid #D6D4CE' : 'none',
+                    borderBottom: i < filtered.length - (filtered.length % 3 || 3) ? '2px solid #D6D4CE' : 'none',
+                  }}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, delay: i * 0.05 }}
+                >
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-slate/0 group-hover:bg-slate/50 transition-all duration-300" />
+                  <div className="absolute top-3 left-3">
+                    <span className="bg-white/90 text-dark text-sm font-body font-semibold px-3 py-1">{item.cat}</span>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate to-transparent p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <p className="text-cream font-body font-semibold text-base">{item.label}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
 
           {filtered.length === 0 && (
             <p className="text-center text-muted text-lg py-20">Aucune réalisation dans cette catégorie pour le moment.</p>
@@ -106,26 +131,32 @@ export default function RealisationsPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-slate py-20 border-t-2 border-white/10">
+      <motion.section
+        className="bg-slate py-20 border-t-2 border-white/10"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="container-site text-center">
           <h2 className="section-h2-light mb-4">Votre projet est le prochain ?</h2>
           <p className="text-cream/60 text-xl max-w-lg mx-auto mb-10">
             Contactez-moi pour un devis gratuit. Je me déplace dans un rayon de 70km autour du Neubourg.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-  <Link href="/contact" className="btn-primary text-xl px-10" style={{ minHeight: '60px' }}>
-    Demander mon devis gratuit
-  </Link>
-  <a href={PHONE_HREF} className="btn-phone text-xl px-10" style={{ minHeight: '60px' }}>
-    <PhoneIcon className="w-6 h-6" />
-    {PHONE_DISPLAY}
-  </a>
-  <Link href="/services" className="btn-outline border-cream text-cream hover:bg-cream hover:text-slate text-xl px-10" style={{ minHeight: '60px' }}>
-    Voir nos services
-  </Link>
-</div>
+            <Link href="/contact" className="btn-primary text-xl px-10" style={{ minHeight: '60px' }}>
+              Demander mon devis gratuit
+            </Link>
+            <a href={PHONE_HREF} className="btn-phone text-xl px-10" style={{ minHeight: '60px' }}>
+              <PhoneIcon className="w-6 h-6" />
+              {PHONE_DISPLAY}
+            </a>
+            <Link href="/services" className="btn-outline border-cream text-cream hover:bg-cream hover:text-slate text-xl px-10" style={{ minHeight: '60px' }}>
+              Voir nos services
+            </Link>
+          </div>
         </div>
-      </section>
+      </motion.section>
     </>
   )
 }
