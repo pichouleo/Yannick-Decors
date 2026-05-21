@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
       })
       await transport.sendMail({
         from:    `"Yannick Décors Site" <${process.env.SMTP_USER}>`,
-        to:      'yannick.pichou@sfr.fr',
+        to: 'leoinfluenceagency@gmail.com',
         replyTo: data.email,
         subject: `Devis — ${data.nom} — ${labels[data.travaux] || data.travaux}`,
         html,

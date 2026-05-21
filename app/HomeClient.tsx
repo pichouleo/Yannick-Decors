@@ -213,10 +213,22 @@ function WhyYannick() {
 
 function GalleryPreview() {
   const items = [
-    { src: '/images/gallery/interieur-salon.svg', alt: 'Peinture intérieure salon en Normandie — finition velours', label: 'Salon — Évreux' },
-    { src: '/images/gallery/facade-colombages.svg', alt: 'Ravalement façade à colombages normands', label: 'Façade — Bernay' },
-    { src: '/images/gallery/papier-peint.svg', alt: 'Pose papier peint panoramique', label: 'Papier peint — Louviers' },
-  ]
+  { 
+    src: '/images/gallery/murs-plafond-escaliers-sainte-opportune.jpeg',
+    alt: 'Peinture murs, plafond et escaliers — Sainte-Opportune-du-Bosc',
+    label: 'Murs, plafond & escaliers — Sainte-Opportune'
+  },
+  { 
+    src: '/images/gallery/enduit-lasure-colombages-vitot.jpg',
+    alt: 'Enduit et lasure sur colombages normands — Vitot',
+    label: 'Enduit & colombages — Vitot'
+  },
+  { 
+    src: '/images/gallery/papier-peint-corneville.jpg',
+    alt: 'Pose papier peint et peinture intérieure — Corneville-sur-Risle',
+    label: 'Papier peint — Corneville-sur-Risle'
+  },
+]
   return (
     <section className="bg-slate py-24">
       <BrushDivider color="#3D4451" flip className="mb-0 -mt-px" />

@@ -10,15 +10,60 @@ const categories = ['Tous', 'Intérieur', 'Extérieur', 'Enduits', 'Revêtements
 type Cat = typeof categories[number]
 
 const realisations = [
-  { src: '/images/gallery/interieur-salon.svg',   alt: 'Peinture intérieure salon — finition velours blanc cassé, Évreux',   label: 'Salon — Évreux',             cat: 'Intérieur'   },
-  { src: '/images/gallery/interieur-chambre.svg', alt: 'Peinture chambre vert sauge — finition mate, Le Neubourg',           label: 'Chambre — Le Neubourg',      cat: 'Intérieur'   },
-  { src: '/images/gallery/facade-colombages.svg', alt: 'Ravalement façade colombages normands — Bernay',                     label: 'Façade colombages — Bernay', cat: 'Extérieur'   },
-  { src: '/images/gallery/volets-boiseries.svg',  alt: 'Peinture volets terracotta et boiseries — Conches-en-Ouche',         label: 'Volets — Conches-en-Ouche', cat: 'Extérieur'   },
-  { src: '/images/gallery/enduit-lissage.svg',    alt: 'Enduit de lissage mur abîmé — préparation avant peinture, Brionne', label: 'Enduit lissage — Brionne',   cat: 'Enduits'     },
-  { src: '/images/gallery/papier-peint.svg',      alt: 'Pose papier peint panoramique — Louviers',                           label: 'Papier peint — Louviers',    cat: 'Revêtements' },
-  { src: '/images/gallery/interieur-salon.svg',   alt: 'Peinture cuisine semi-brillante — Pont-Audemer',                     label: 'Cuisine — Pont-Audemer',     cat: 'Intérieur'   },
-  { src: '/images/gallery/enduit-lissage.svg',    alt: 'Enduit plafond salle de bain — finition lisse, Bourg-Achard',        label: 'Plafond SdB — Bourg-Achard',cat: 'Enduits'     },
-  { src: '/images/gallery/volets-boiseries.svg',  alt: 'Parquet stratifié pose dans salon — Elbeuf',                         label: 'Parquet — Elbeuf',           cat: 'Revêtements' },
+  { 
+    src: '/images/gallery/murs-plafond-escaliers-sainte-opportune.jpeg',
+    alt: 'Peinture murs, plafond et escaliers — Sainte-Opportune-du-Bosc',
+    label: 'Murs, plafond & escaliers — Sainte-Opportune',
+    cat: 'Intérieur'
+  },
+  { 
+    src: '/images/gallery/chalet-jardin-sainte-opportune.jpeg',
+    alt: 'Peinture extérieure chalet de jardin — Sainte-Opportune-du-Bosc',
+    label: 'Chalet de jardin — Sainte-Opportune',
+    cat: 'Extérieur'
+  },
+  { 
+    src: '/images/gallery/peinture-parquet-barc.jpeg',
+    alt: 'Peinture intérieure et parquet stratifié — Barc',
+    label: 'Peinture & parquet — Barc',
+    cat: 'Revêtements'
+  },
+  { 
+    src: '/images/gallery/enduit-lasure-colombages-vitot.jpg',
+    alt: 'Enduit et lasure sur colombages normands — Vitot',
+    label: 'Enduit & colombages — Vitot',
+    cat: 'Enduits'
+  },
+  { 
+    src: '/images/gallery/papier-peint-corneville.jpg',
+    alt: 'Pose papier peint et peinture intérieure — Corneville-sur-Risle',
+    label: 'Papier peint — Corneville-sur-Risle',
+    cat: 'Revêtements'
+  },
+  { 
+    src: '/images/gallery/enduit-peinture-chambre-sainte-opportune.jpg',
+    alt: 'Enduit et peinture chambre — Sainte-Opportune-du-Bosc',
+    label: 'Enduit & peinture chambre — Sainte-Opportune',
+    cat: 'Enduits'
+  },
+  { 
+    src: '/images/gallery/moquette-murs-plafond-sainte-opportune.jpg',
+    alt: 'Pose moquette murale et plafond — Sainte-Opportune-du-Bosc',
+    label: 'Moquette murs & plafond — Sainte-Opportune',
+    cat: 'Revêtements'
+  },
+  { 
+    src: '/images/gallery/lasure-poutres-sainte-opportune.jpg',
+    alt: 'Lasure poutres apparentes et peinture — Sainte-Opportune-du-Bosc',
+    label: 'Lasure poutres — Sainte-Opportune',
+    cat: 'Intérieur'
+  },
+  { 
+    src: '/images/gallery/peinture-murs-plafond-beaumont.jpg',
+    alt: 'Peinture murs et plafond — Beaumont-le-Roger',
+    label: 'Murs & plafond — Beaumont-le-Roger',
+    cat: 'Intérieur'
+  },
 ]
 
 export default function RealisationsClient() {

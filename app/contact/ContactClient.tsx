@@ -1,158 +1,249 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 import { BrushUnderline } from '@/components/BrushStroke'
 import { PHONE_DISPLAY, PHONE_HREF, EMAIL, ADDRESS, ZONE } from '@/lib/constants'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
-const schema = z.object({
-  nom:       z.string().min(2, 'Votre nom est requis'),
-  telephone: z.string().min(10, 'Numéro de téléphone requis'),
-  email:     z.string().email('Adresse email invalide'),
-  travaux:   z.string().min(1, 'Veuillez choisir un type de travaux'),
-  message:   z.string().min(10, 'Décrivez votre projet (10 caractères minimum)'),
-})
-type F = z.infer<typeof schema>
+const TRAVAUX = [
+  { value: 'interieure', label: 'Peinture intérieure', emoji: '🏠' },
+  { value: 'exterieure', label: 'Peinture extérieure', emoji: '🏡' },
+  { value: 'enduits', label: 'Enduits & préparation', emoji: '🪣' },
+  { value: 'revetements', label: 'Pose de revêtements', emoji: '🪵' },
+  { value: 'autre', label: 'Autre projet', emoji: '✏️' },
+]
+
+type FormData = {
+  travaux: string
+  nom: string
+  telephone: string
+  email: string
+  message: string
+}
 
 export default function ContactClient() {
+  const [step, setStep] = useState(0)
   const [status, setStatus] = useState<'idle' | 'sending' | 'ok' | 'err'>('idle')
   const [serverMsg, setServerMsg] = useState('')
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<F>({ resolver: zodResolver(schema) })
+  const [data, setData] = useState<FormData>({ travaux: '', nom: '', telephone: '', email: '', message: '' })
+  const [error, setError] = useState('')
 
-  const onSubmit = async (data: F) => {
+  const next = () => { setError(''); setStep(s => s + 1) }
+  const back = () => { setError(''); setStep(s => s - 1) }
+
+  const validate = () => {
+    if (step === 0 && !data.travaux) { setError('Choisissez un type de travaux'); return false }
+    if (step === 1 && data.nom.length < 2) { setError('Votre nom est requis'); return false }
+    if (step === 2 && data.telephone.length < 10) { setError('Numéro de téléphone invalide'); return false }
+    if (step === 3 && !/\S+@\S+\.\S+/.test(data.email)) { setError('Email invalide'); return false }
+    if (step === 4 && data.message.length < 10) { setError('Décrivez votre projet (10 caractères min.)'); return false }
+    return true
+  }
+
+  const handleNext = () => { if (validate()) next() }
+
+  const handleSubmit = async () => {
+    if (!validate()) return
     setStatus('sending')
     try {
-      const res  = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+      const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
       const json = await res.json()
-      if (res.ok && json.success) { setStatus('ok'); setServerMsg(json.message); reset() }
+      if (res.ok && json.success) { setStatus('ok'); setServerMsg(json.message) }
       else { setStatus('err'); setServerMsg(json.message || 'Erreur inconnue.') }
     } catch {
       setStatus('err'); setServerMsg(`Erreur réseau. Appelez directement au ${PHONE_DISPLAY}`)
     }
   }
 
+  const steps = [
+    /* 0 — Type de travaux */
+    <div key="travaux" className="space-y-4">
+      <p className="font-title text-2xl text-dark mb-6">Quel type de travaux souhaitez-vous ?</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {TRAVAUX.map((t) => (
+          <button
+            key={t.value}
+            type="button"
+            onClick={() => { setData(d => ({ ...d, travaux: t.value })); setError('') }}
+            className={`flex items-center gap-4 p-5 border-2 text-left transition-all duration-200 ${
+              data.travaux === t.value
+                ? 'border-terra bg-terra/10 text-dark'
+                : 'border-border hover:border-terra/50 text-dark'
+            }`}
+          >
+            <span className="text-2xl">{t.emoji}</span>
+            <span className="font-body font-semibold text-lg">{t.label}</span>
+          </button>
+        ))}
+      </div>
+    </div>,
+
+    /* 1 — Nom */
+    <div key="nom" className="space-y-4">
+      <p className="font-title text-2xl text-dark mb-6">Quel est votre nom ?</p>
+      <input
+        type="text"
+        autoComplete="name"
+        placeholder="Jean Dupont"
+        value={data.nom}
+        onChange={e => setData(d => ({ ...d, nom: e.target.value }))}
+        onKeyDown={e => e.key === 'Enter' && handleNext()}
+        className="field w-full text-xl"
+        style={{ minHeight: '60px' }}
+        autoFocus
+      />
+    </div>,
+
+    /* 2 — Téléphone */
+    <div key="telephone" className="space-y-4">
+      <p className="font-title text-2xl text-dark mb-6">Votre numéro de téléphone ?</p>
+      <input
+        type="tel"
+        autoComplete="tel"
+        placeholder="06 12 34 56 78"
+        value={data.telephone}
+        onChange={e => setData(d => ({ ...d, telephone: e.target.value }))}
+        onKeyDown={e => e.key === 'Enter' && handleNext()}
+        className="field w-full text-xl"
+        style={{ minHeight: '60px' }}
+        autoFocus
+      />
+    </div>,
+
+    /* 3 — Email */
+    <div key="email" className="space-y-4">
+      <p className="font-title text-2xl text-dark mb-6">Votre adresse email ?</p>
+      <input
+        type="email"
+        autoComplete="email"
+        placeholder="jean.dupont@email.fr"
+        value={data.email}
+        onChange={e => setData(d => ({ ...d, email: e.target.value }))}
+        onKeyDown={e => e.key === 'Enter' && handleNext()}
+        className="field w-full text-xl"
+        style={{ minHeight: '60px' }}
+        autoFocus
+      />
+    </div>,
+
+    /* 4 — Message */
+    <div key="message" className="space-y-4">
+      <p className="font-title text-2xl text-dark mb-6">Décrivez votre projet</p>
+      <textarea
+        rows={5}
+        placeholder="Surface approximative, état actuel, délai souhaité, commune…"
+        value={data.message}
+        onChange={e => setData(d => ({ ...d, message: e.target.value }))}
+        className="field w-full text-lg resize-none"
+        autoFocus
+      />
+    </div>,
+  ]
+
+  const totalSteps = steps.length
+
   return (
     <>
       {/* Header */}
       <section className="bg-slate py-20">
         <div className="container-site">
-          <motion.span
-            className="section-tag text-terra/80"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+          <motion.span className="section-tag text-terra/80" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
             Contact
           </motion.span>
-          <motion.h1
-            className="font-title text-cream mb-4"
-            style={{ fontSize: 'clamp(48px, 7vw, 80px)' }}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          >
-            Demandez votre{' '}
-            <span className="text-terra">devis gratuit</span>
+          <motion.h1 className="font-title text-cream mb-4" style={{ fontSize: 'clamp(48px, 7vw, 80px)' }} initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>
+            Demandez votre{' '}<span className="text-terra">devis gratuit</span>
           </motion.h1>
-          <motion.p
-            className="text-cream/60 text-xl max-w-xl"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
+          <motion.p className="text-cream/60 text-xl max-w-xl" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }}>
             Remplissez le formulaire ou appelez directement. Je vous réponds sous 48h.
           </motion.p>
         </div>
       </section>
 
       {/* Formulaire + Coordonnées */}
-      <motion.section
-        className="bg-cream py-16 border-t-2 border-border"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
+      <motion.section className="bg-cream py-16 border-t-2 border-border" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
         <div className="container-site">
           <div className="grid lg:grid-cols-5 gap-12 items-start">
 
-            {/* Formulaire */}
-            <motion.div
-              className="lg:col-span-3"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
+            {/* Formulaire wizard */}
+            <motion.div className="lg:col-span-3" initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}>
               <h2 className="section-h2 mb-2">Votre projet</h2>
               <BrushUnderline className="mb-8" />
 
               {status === 'ok' ? (
-                <motion.div
-                  className="border-2 border-[#6B8F71] bg-[#EFF6EF] p-10 text-center"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4 }}
-                >
+                <motion.div className="border-2 border-[#6B8F71] bg-[#EFF6EF] p-10 text-center" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4 }}>
                   <p className="font-title text-3xl text-dark mb-3">Message envoyé !</p>
                   <p className="text-muted text-lg mb-6">{serverMsg}</p>
-                  <button onClick={() => setStatus('idle')} className="btn-slate text-base px-8">
-                    Envoyer un autre message
+                  <button onClick={() => { setStatus('idle'); setStep(0); setData({ travaux: '', nom: '', telephone: '', email: '', message: '' }) }} className="btn-slate text-base px-8">
+                    Envoyer une autre demande
                   </button>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6 border-2 border-border p-8">
-                  <div className="grid sm:grid-cols-2 gap-6">
-                    <Field label="Nom et prénom" error={errors.nom?.message} required>
-                      <input id="nom" type="text" autoComplete="name" placeholder="Jean Dupont" {...register('nom')} />
-                    </Field>
-                    <Field label="Téléphone" error={errors.telephone?.message} required>
-                      <input id="telephone" type="tel" autoComplete="tel" placeholder="06 12 34 56 78" {...register('telephone')} />
-                    </Field>
+                <div className="border-2 border-border p-8">
+
+                  {/* Barre de progression */}
+                  <div className="flex gap-2 mb-8">
+                    {Array.from({ length: totalSteps }).map((_, i) => (
+                      <div key={i} className={`h-1 flex-1 transition-all duration-300 ${i <= step ? 'bg-terra' : 'bg-border'}`} />
+                    ))}
                   </div>
-                  <Field label="Email" error={errors.email?.message} required>
-                    <input id="email" type="email" autoComplete="email" placeholder="jean.dupont@email.fr" {...register('email')} />
-                  </Field>
-                  <Field label="Type de travaux" error={errors.travaux?.message} required>
-                    <select id="travaux" {...register('travaux')} defaultValue="">
-                      <option value="" disabled>Choisir un type de travaux…</option>
-                      <option value="interieure">Peinture intérieure</option>
-                      <option value="exterieure">Peinture extérieure et ravalement</option>
-                      <option value="enduits">Enduits et préparation</option>
-                      <option value="revetements">Pose de revêtements</option>
-                      <option value="autre">Autre / Non défini</option>
-                    </select>
-                  </Field>
-                  <Field label="Décrivez votre projet" error={errors.message?.message} required>
-                    <textarea id="message" rows={5} placeholder="Surface approximative, état actuel, délai souhaité, commune…" {...register('message')} />
-                  </Field>
-                  {status === 'err' && (
-                    <div className="border-2 border-red-300 bg-red-50 text-red-700 px-5 py-4 text-base">{serverMsg}</div>
+
+                  {/* Étape courante */}
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={step}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.25 }}
+                    >
+                      {steps[step]}
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {/* Erreur */}
+                  {error && (
+                    <motion.p className="text-red-500 text-base mt-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                      {error}
+                    </motion.p>
                   )}
-                  <button type="submit" disabled={status === 'sending'} className="btn-primary w-full text-xl justify-center disabled:opacity-60 disabled:cursor-not-allowed" style={{ minHeight: '60px' }}>
-                    {status === 'sending' ? (
-                      <><SpinIcon className="w-5 h-5 animate-spin" />Envoi en cours…</>
-                    ) : (
-                      <><SendIcon className="w-5 h-5" />Envoyer ma demande de devis</>
+
+                  {/* Erreur serveur */}
+                  {status === 'err' && (
+                    <div className="border-2 border-red-300 bg-red-50 text-red-700 px-5 py-4 text-base mt-4">{serverMsg}</div>
+                  )}
+
+                  {/* Boutons navigation */}
+                  <div className="flex gap-4 mt-8">
+                    {step > 0 && (
+                      <button type="button" onClick={back} className="btn-outline text-lg px-8">
+                        ← Retour
+                      </button>
                     )}
-                  </button>
-                  <p className="text-muted text-sm text-center">Vos données sont uniquement utilisées pour traiter votre demande.</p>
-                </form>
+                    {step < totalSteps - 1 ? (
+                      <button type="button" onClick={handleNext} className="btn-primary text-lg flex-1 justify-center" style={{ minHeight: '56px' }}>
+                        Continuer →
+                      </button>
+                    ) : (
+                      <button type="button" onClick={handleSubmit} disabled={status === 'sending'} className="btn-primary text-lg flex-1 justify-center disabled:opacity-60" style={{ minHeight: '56px' }}>
+                        {status === 'sending' ? (
+                          <><SpinIcon className="w-5 h-5 animate-spin" />Envoi en cours…</>
+                        ) : (
+                          <><SendIcon className="w-5 h-5" />Envoyer ma demande</>
+                        )}
+                      </button>
+                    )}
+                  </div>
+
+                  <p className="text-muted text-sm text-center mt-4">
+                    Étape {step + 1} sur {totalSteps} · Vos données sont sécurisées
+                  </p>
+                </div>
               )}
             </motion.div>
 
             {/* Coordonnées */}
-            <motion.div
-              className="lg:col-span-2 space-y-0"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
+            <motion.div className="lg:col-span-2 space-y-0" initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}>
               <div className="bg-slate p-8 border-b-4 border-terra">
                 <p className="font-body font-semibold text-cream/60 text-sm uppercase tracking-widest mb-3">Appel direct</p>
                 <a href={PHONE_HREF} className="font-title text-cream hover:text-terra transition-colors block mb-4" style={{ fontSize: '40px', lineHeight: '1.1' }} aria-label={`Appeler Yannick au ${PHONE_DISPLAY}`}>
@@ -186,26 +277,14 @@ export default function ContactClient() {
       </motion.section>
 
       {/* Liens internes */}
-      <motion.section
-        className="bg-cream py-12 border-t-2 border-border"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
+      <motion.section className="bg-cream py-12 border-t-2 border-border" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
         <div className="container-site">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
               { href: '/services', label: 'Voir nos services' },
               { href: '/realisations', label: 'Voir nos réalisations' },
             ].map((link, i) => (
-              <motion.div
-                key={link.href}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-              >
+              <motion.div key={link.href} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.1 }}>
                 <Link href={link.href} className="flex items-center justify-between p-6 border-2 border-border hover:border-terra hover:text-terra transition-colors">
                   <span className="font-body font-semibold text-lg">{link.label}</span>
                   <svg className="w-5 h-5 text-terra" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
@@ -216,18 +295,6 @@ export default function ContactClient() {
         </div>
       </motion.section>
     </>
-  )
-}
-
-function Field({ label, error, required, children }: { label: string; error?: string; required?: boolean; children: React.ReactNode }) {
-  return (
-    <div>
-      <label className="block font-body font-semibold text-dark text-base mb-2">
-        {label}{required && <span className="text-terra ml-1">*</span>}
-      </label>
-      <div style={{ borderColor: error ? '#EF4444' : undefined }}>{children}</div>
-      {error && <p className="mt-2 text-red-500 text-sm font-body">{error}</p>}
-    </div>
   )
 }
 
