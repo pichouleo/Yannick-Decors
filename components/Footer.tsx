@@ -34,10 +34,10 @@ export default function Footer() {
             <Link href="/" aria-label="Yannick Décors — Accueil">
               <div className="relative h-32 w-80 mb-6">
                 <Image
-                  src="/logo-yannick-decors-footer.png"
+                  src="/logo-yannick-decors.png"
                   alt="Logo Yannick Décors Artisan Peintre"
                   fill
-                  className="object-contain object-left opacity-90"
+                  className="object-contain object-left opacity-90 brightness-0 invert"
                 />
               </div>
             </Link>

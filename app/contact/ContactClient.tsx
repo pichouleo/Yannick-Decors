@@ -28,6 +28,7 @@ export default function ContactClient() {
   const [serverMsg, setServerMsg] = useState('')
   const [data, setData] = useState<FormData>({ travaux: '', nom: '', telephone: '', email: '', message: '' })
   const [error, setError] = useState('')
+  const [rgpd, setRgpd] = useState(false)
 
   const next = () => { setError(''); setStep(s => s + 1) }
   const back = () => { setError(''); setStep(s => s - 1) }
@@ -44,8 +45,9 @@ export default function ContactClient() {
   const handleNext = () => { if (validate()) next() }
 
   const handleSubmit = async () => {
-    if (!validate()) return
-    setStatus('sending')
+  if (!validate()) return
+  if (!rgpd) { setError('Vous devez accepter la politique de confidentialité'); return }
+  setStatus('sending')
     try {
       const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
       const json = await res.json()
@@ -128,17 +130,29 @@ export default function ContactClient() {
     </div>,
 
     /* 4 — Message */
-    <div key="message" className="space-y-4">
-      <p className="font-title text-2xl text-dark mb-6">Décrivez votre projet</p>
-      <textarea
-        rows={5}
-        placeholder="Surface approximative, état actuel, délai souhaité, commune…"
-        value={data.message}
-        onChange={e => setData(d => ({ ...d, message: e.target.value }))}
-        className="field w-full text-lg resize-none"
-        autoFocus
-      />
-    </div>,
+<div key="message" className="space-y-4">
+  <p className="font-title text-2xl text-dark mb-6">Décrivez votre projet</p>
+  <textarea
+    rows={5}
+    placeholder="Surface approximative, état actuel, délai souhaité, commune…"
+    value={data.message}
+    onChange={e => setData(d => ({ ...d, message: e.target.value }))}
+    className="field w-full text-lg resize-none"
+    autoFocus
+  />
+  <div className="flex items-start gap-3 mt-4">
+    <input
+      type="checkbox"
+      id="rgpd"
+      checked={rgpd}
+      onChange={e => setRgpd(e.target.checked)}
+      className="mt-1 w-5 h-5 flex-shrink-0 accent-terra cursor-pointer"
+    />
+    <label htmlFor="rgpd" className="text-muted text-sm leading-relaxed cursor-pointer">
+      J'accepte que mes données personnelles soient utilisées pour traiter ma demande de devis, conformément au RGPD. *
+    </label>
+  </div>
+</div>,
   ]
 
   const totalSteps = steps.length

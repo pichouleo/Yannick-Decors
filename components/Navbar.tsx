@@ -13,10 +13,11 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen]   = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  const onScroll = () => setScrolled(window.scrollY > 72)
+  onScroll() // appel immédiat au chargement
+  window.addEventListener('scroll', onScroll, { passive: true })
+  return () => window.removeEventListener('scroll', onScroll)
+}, [])
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
@@ -36,7 +37,7 @@ export default function Navbar() {
       <header
   className={`sticky top-0 z-50 transition-all duration-300 ${
     scrolled
-      ? 'bg-cream/97 backdrop-blur-sm shadow-[0_2px_0_0_#D6D4CE]'
+      ? 'bg-cream/80 backdrop-blur-xl shadow-[0_2px_0_0_#D6D4CE]'
       : 'bg-cream border-b-2 border-border'
   }`}
 >

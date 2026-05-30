@@ -29,15 +29,15 @@ function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-end pb-20 pt-8">
           <div>
             <motion.span className="section-tag text-terra/90" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
-              Artisan peintre indépendant · Normandie
-            </motion.span>
-            <motion.h1 className="font-title text-cream mb-6" style={{ fontSize: 'clamp(36px, 5vw, 58px)', lineHeight: '1.1' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
-              Votre habitat,<br /><span className="text-terra">peint avec soin.</span>
-            </motion.h1>
-            <motion.p className="text-cream/70 text-lg leading-relaxed mb-8 max-w-lg" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.35 }}>
-              Peintre artisan basé à Saint&nbsp;Opportune&nbsp;du&nbsp;Bosc, j'interviens dans un rayon de{' '}
-              <strong className="text-cream">70&nbsp;km autour du Neubourg</strong> — Eure et Seine-Maritime. Devis gratuit sous 48h.
-            </motion.p>
+  Artisan peintre indépendant · Normandie
+</motion.span>
+<motion.h1 className="font-title text-cream mb-6" style={{ fontSize: 'clamp(36px, 5vw, 58px)', lineHeight: '1.1' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
+  Votre habitat,<br /><span className="text-terra">peint avec soin.</span>
+</motion.h1>
+<motion.p className="text-cream/70 text-lg leading-relaxed mb-8 max-w-lg" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.35 }}>
+  Votre habitat peint avec soin par Yannick — artisan peintre indépendant basé à Saint&nbsp;Opportune&nbsp;du&nbsp;Bosc, dans l'Eure et la Seine-Maritime.{' '}
+  <strong className="text-cream">Devis gratuit.</strong>
+</motion.p>
             <motion.div className="bg-terra/20 border-l-4 border-terra px-6 py-4 mb-8" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.5 }}>
               <p className="text-cream/70 text-sm font-body font-semibold uppercase tracking-wider mb-1">Appelez directement</p>
               <a href={PHONE_HREF} className="font-title text-cream hover:text-terra transition-colors" style={{ fontSize: '36px', lineHeight: '1' }} aria-label={`Appeler Yannick au ${PHONE_DISPLAY}`}>

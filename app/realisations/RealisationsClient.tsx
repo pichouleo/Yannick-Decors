@@ -10,64 +10,22 @@ const categories = ['Tous', 'Intérieur', 'Extérieur', 'Enduits', 'Revêtements
 type Cat = typeof categories[number]
 
 const realisations = [
-  { 
-    src: '/images/gallery/murs-plafond-escaliers-sainte-opportune.jpeg',
-    alt: 'Peinture murs, plafond et escaliers — Sainte-Opportune-du-Bosc',
-    label: 'Murs, plafond & escaliers — Sainte-Opportune',
-    cat: 'Intérieur'
-  },
-  { 
-    src: '/images/gallery/chalet-jardin-sainte-opportune.jpeg',
-    alt: 'Peinture extérieure chalet de jardin — Sainte-Opportune-du-Bosc',
-    label: 'Chalet de jardin — Sainte-Opportune',
-    cat: 'Extérieur'
-  },
-  { 
-    src: '/images/gallery/peinture-parquet-barc.jpeg',
-    alt: 'Peinture intérieure et parquet stratifié — Barc',
-    label: 'Peinture & parquet — Barc',
-    cat: 'Revêtements'
-  },
-  { 
-    src: '/images/gallery/enduit-lasure-colombages-vitot.jpg',
-    alt: 'Enduit et lasure sur colombages normands — Vitot',
-    label: 'Enduit & colombages — Vitot',
-    cat: 'Enduits'
-  },
-  { 
-    src: '/images/gallery/papier-peint-corneville.jpg',
-    alt: 'Pose papier peint et peinture intérieure — Corneville-sur-Risle',
-    label: 'Papier peint — Corneville-sur-Risle',
-    cat: 'Revêtements'
-  },
-  { 
-    src: '/images/gallery/enduit-peinture-chambre-sainte-opportune.jpg',
-    alt: 'Enduit et peinture chambre — Sainte-Opportune-du-Bosc',
-    label: 'Enduit & peinture chambre — Sainte-Opportune',
-    cat: 'Enduits'
-  },
-  { 
-    src: '/images/gallery/moquette-murs-plafond-sainte-opportune.jpg',
-    alt: 'Pose moquette murale et plafond — Sainte-Opportune-du-Bosc',
-    label: 'Moquette murs & plafond — Sainte-Opportune',
-    cat: 'Revêtements'
-  },
-  { 
-    src: '/images/gallery/lasure-poutres-sainte-opportune.jpg',
-    alt: 'Lasure poutres apparentes et peinture — Sainte-Opportune-du-Bosc',
-    label: 'Lasure poutres — Sainte-Opportune',
-    cat: 'Intérieur'
-  },
-  { 
-    src: '/images/gallery/peinture-murs-plafond-beaumont.jpg',
-    alt: 'Peinture murs et plafond — Beaumont-le-Roger',
-    label: 'Murs & plafond — Beaumont-le-Roger',
-    cat: 'Intérieur'
-  },
+  { src: '/images/gallery/murs-plafond-escaliers-sainte-opportune.jpeg', alt: 'Peinture murs, plafond et escaliers — Sainte-Opportune-du-Bosc', label: 'Murs, plafond & escaliers — Sainte-Opportune', cat: 'Intérieur' },
+  { src: '/images/gallery/chalet-jardin-sainte-opportune.jpeg', alt: 'Peinture extérieure chalet de jardin — Sainte-Opportune-du-Bosc', label: 'Chalet de jardin — Sainte-Opportune', cat: 'Extérieur' },
+  { src: '/images/gallery/peinture-parquet-barc.jpeg', alt: 'Peinture intérieure et parquet stratifié — Barc', label: 'Peinture & parquet — Barc', cat: 'Revêtements' },
+  { src: '/images/gallery/enduit-lasure-colombages-vitot.jpg', alt: 'Enduit et lasure sur colombages normands — Vitot', label: 'Enduit & colombages — Vitot', cat: 'Enduits' },
+  { src: '/images/gallery/papier-peint-corneville.jpg', alt: 'Pose papier peint et peinture intérieure — Corneville-sur-Risle', label: 'Papier peint — Corneville-sur-Risle', cat: 'Revêtements' },
+  { src: '/images/gallery/enduit-peinture-chambre-sainte-opportune.jpg', alt: 'Enduit et peinture chambre — Sainte-Opportune-du-Bosc', label: 'Enduit & peinture chambre — Sainte-Opportune', cat: 'Enduits' },
+  { src: '/images/gallery/moquette-murs-plafond-sainte-opportune.jpg', alt: 'Pose moquette murale et plafond — Sainte-Opportune-du-Bosc', label: 'Moquette murs & plafond — Sainte-Opportune', cat: 'Revêtements' },
+  { src: '/images/gallery/lasure-poutres-sainte-opportune.jpg', alt: 'Lasure poutres apparentes et peinture — Sainte-Opportune-du-Bosc', label: 'Lasure poutres — Sainte-Opportune', cat: 'Intérieur' },
+  { src: '/images/gallery/peinture-murs-plafond-beaumont.jpg', alt: 'Peinture murs et plafond — Beaumont-le-Roger', label: 'Murs & plafond — Beaumont-le-Roger', cat: 'Intérieur' },
 ]
+
+type Realisation = typeof realisations[number]
 
 export default function RealisationsClient() {
   const [activeCat, setActiveCat] = useState<Cat>('Tous')
+  const [selectedImage, setSelectedImage] = useState<Realisation | null>(null)
   const filtered = activeCat === 'Tous' ? realisations : realisations.filter((r) => r.cat === activeCat)
 
   return (
@@ -75,31 +33,13 @@ export default function RealisationsClient() {
       {/* Header */}
       <section className="bg-slate py-20">
         <div className="container-site">
-          <motion.span
-            className="section-tag text-terra/80"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+          <motion.span className="section-tag text-terra/80" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
             Portfolio
           </motion.span>
-          <motion.h1
-            className="font-title text-cream mb-6"
-            style={{ fontSize: 'clamp(48px, 7vw, 80px)' }}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          >
-            Nos réalisations
-            <br />
-            <span className="text-terra">en Normandie</span>
+          <motion.h1 className="font-title text-cream mb-6" style={{ fontSize: 'clamp(48px, 7vw, 80px)' }} initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>
+            Nos réalisations<br /><span className="text-terra">en Normandie</span>
           </motion.h1>
-          <motion.p
-            className="text-cream/60 text-xl max-w-2xl"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
+          <motion.p className="text-cream/60 text-xl max-w-2xl" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }}>
             Chaque chantier est unique. Découvrez quelques exemples de travaux réalisés par Yannick Décors en Normandie.
           </motion.p>
         </div>
@@ -110,15 +50,7 @@ export default function RealisationsClient() {
         <div className="container-site py-0">
           <div className="flex gap-0 overflow-x-auto">
             {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCat(cat)}
-                className={`flex-shrink-0 px-6 py-4 font-body font-semibold text-base transition-colors border-b-4 whitespace-nowrap ${
-                  activeCat === cat
-                    ? 'border-terra text-terra'
-                    : 'border-transparent text-muted hover:text-dark hover:border-border'
-                }`}
-              >
+              <button key={cat} onClick={() => setActiveCat(cat)} className={`flex-shrink-0 px-6 py-4 font-body font-semibold text-base transition-colors border-b-4 whitespace-nowrap ${activeCat === cat ? 'border-terra text-terra' : 'border-transparent text-muted hover:text-dark hover:border-border'}`}>
                 {cat}
               </button>
             ))}
@@ -130,36 +62,32 @@ export default function RealisationsClient() {
       <section className="bg-cream py-16">
         <div className="container-site">
           <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCat}
-              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-0 border-2 border-border"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.4 }}
-            >
+            <motion.div key={activeCat} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-0 border-2 border-border" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.4 }}>
               {filtered.map((item, i) => (
                 <motion.div
                   key={`${item.src}-${i}`}
-                  className={`relative aspect-[4/3] overflow-hidden group`}
+                  className="relative aspect-[4/3] overflow-hidden group cursor-pointer"
                   style={{
                     borderRight: (i + 1) % 3 !== 0 ? '2px solid #D6D4CE' : 'none',
                     borderBottom: i < filtered.length - (filtered.length % 3 || 3) ? '2px solid #D6D4CE' : 'none',
                   }}
+                  onClick={() => setSelectedImage(item)}
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, delay: i * 0.05 }}
                 >
-                  <Image
-                    src={item.src}
-                    alt={item.alt}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
+                  <Image src={item.src} alt={item.alt} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                   <div className="absolute inset-0 bg-slate/0 group-hover:bg-slate/50 transition-all duration-300" />
                   <div className="absolute top-3 left-3">
                     <span className="bg-white/90 text-dark text-sm font-body font-semibold px-3 py-1">{item.cat}</span>
+                  </div>
+                  {/* Icône zoom */}
+                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="bg-white/90 text-dark p-2 flex items-center justify-center">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                      </svg>
+                    </span>
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate to-transparent p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                     <p className="text-cream font-body font-semibold text-base">{item.label}</p>
@@ -168,7 +96,6 @@ export default function RealisationsClient() {
               ))}
             </motion.div>
           </AnimatePresence>
-
           {filtered.length === 0 && (
             <p className="text-center text-muted text-lg py-20">Aucune réalisation dans cette catégorie pour le moment.</p>
           )}
@@ -176,32 +103,51 @@ export default function RealisationsClient() {
       </section>
 
       {/* CTA */}
-      <motion.section
-        className="bg-slate py-20 border-t-2 border-white/10"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
+      <motion.section className="bg-slate py-20 border-t-2 border-white/10" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
         <div className="container-site text-center">
           <h2 className="section-h2-light mb-4">Votre projet est le prochain ?</h2>
           <p className="text-cream/60 text-xl max-w-lg mx-auto mb-10">
             Contactez-moi pour un devis gratuit. Je me déplace dans un rayon de 70km autour du Neubourg.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="btn-primary text-xl px-10" style={{ minHeight: '60px' }}>
-              Demander mon devis gratuit
-            </Link>
+            <Link href="/contact" className="btn-primary text-xl px-10" style={{ minHeight: '60px' }}>Demander mon devis gratuit</Link>
             <a href={PHONE_HREF} className="btn-phone text-xl px-10" style={{ minHeight: '60px' }}>
-              <PhoneIcon className="w-6 h-6" />
-              {PHONE_DISPLAY}
+              <PhoneIcon className="w-6 h-6" />{PHONE_DISPLAY}
             </a>
-            <Link href="/services" className="btn-outline border-cream text-cream hover:bg-cream hover:text-slate text-xl px-10" style={{ minHeight: '60px' }}>
-              Voir nos services
-            </Link>
+            <Link href="/services" className="btn-outline border-cream text-cream hover:bg-cream hover:text-slate text-xl px-10" style={{ minHeight: '60px' }}>Voir nos services</Link>
           </div>
         </div>
       </motion.section>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+          >
+            <motion.div
+              className="relative max-w-4xl w-full"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={e => e.stopPropagation()}
+            >
+              <Image src={selectedImage.src} alt={selectedImage.alt} width={1200} height={800} className="w-full h-auto object-contain" />
+              <div className="bg-slate/90 px-6 py-4 flex items-center justify-between">
+                <p className="text-cream font-body font-semibold text-lg">{selectedImage.label}</p>
+                <button onClick={() => setSelectedImage(null)} className="text-cream/60 hover:text-cream transition-colors text-sm font-body px-4 py-2 border border-white/20 hover:border-white/50">
+                  ✕ Fermer
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }
