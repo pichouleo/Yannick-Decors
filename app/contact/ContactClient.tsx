@@ -149,8 +149,11 @@ export default function ContactClient() {
       className="mt-1 w-5 h-5 flex-shrink-0 accent-terra cursor-pointer"
     />
     <label htmlFor="rgpd" className="text-muted text-sm leading-relaxed cursor-pointer">
-      J'accepte que mes données personnelles soient utilisées pour traiter ma demande de devis, conformément au RGPD. *
-    </label>
+  J'accepte que mes données personnelles soient utilisées pour traiter ma demande de devis, conformément à notre{' '}
+  <Link href="/politique-confidentialite" className="text-terra hover:underline">
+    politique de confidentialité
+  </Link>. *
+</label>
   </div>
 </div>,
   ]

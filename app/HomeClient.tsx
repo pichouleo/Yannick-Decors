@@ -26,7 +26,7 @@ function Hero() {
     <section className="relative bg-slate overflow-hidden" style={{ paddingTop: '60px', paddingBottom: '0' }} aria-label="Présentation Yannick Décors">
       {/* Photo de fond */}
       <div className="absolute inset-0">
-        <Image src="/yannick-decors-hero.png" alt="" fill className="object-cover opacity-50" aria-hidden="true" priority />
+        <Image src="/yannick-decors-hero.png" alt="" fill className="object-cover opacity-40" aria-hidden="true" priority />
         <div className="absolute inset-0 bg-slate/30" />
       </div>
       <div className="container-site relative z-10">

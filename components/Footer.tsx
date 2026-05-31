@@ -57,18 +57,28 @@ export default function Footer() {
           </div>
 
           {/* Navigation */}
-          <div>
-            <h3 className="font-body font-semibold text-cream text-base uppercase tracking-widest mb-6">Navigation</h3>
-            <ul className="space-y-3">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="text-cream/60 hover:text-terra transition-colors text-base">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+<div>
+  <h3 className="font-body font-semibold text-cream text-base uppercase tracking-widest mb-6">Navigation</h3>
+  <ul className="space-y-3">
+    {NAV_LINKS.map((link) => (
+      <li key={link.href}>
+        <Link href={link.href} className="text-cream/60 hover:text-terra transition-colors text-base">
+          {link.label}
+        </Link>
+      </li>
+    ))}
+    <li>
+      <Link href="/mentions-legales" className="text-cream/60 hover:text-terra transition-colors text-base">
+        Mentions légales
+      </Link>
+    </li>
+    <li>
+  <Link href="/politique-confidentialite" className="text-cream/60 hover:text-terra transition-colors text-base">
+    Politique de confidentialité
+  </Link>
+</li>
+  </ul>
+</div>
 
           {/* Services */}
           <div>

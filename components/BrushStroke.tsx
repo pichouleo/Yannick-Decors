@@ -14,23 +14,15 @@ export function BrushDivider({ color = '#F5F4F0', flip = false, className = '' }
       style={{ marginBottom: '-2px' }}
     >
       <svg
-        viewBox="0 0 1440 56"
+        viewBox="0 0 1440 80"
         preserveAspectRatio="none"
         xmlns="http://www.w3.org/2000/svg"
         className="w-full"
-        style={{ height: '56px', display: 'block' }}
+        style={{ height: '80px', display: 'block' }}
       >
         <path
-          d="M0,28 C80,8 160,48 280,32 C400,16 480,44 600,28 C720,12 840,46 960,30 C1080,14 1200,42 1320,26 C1380,18 1420,32 1440,28 L1440,56 L0,56 Z"
+          d="M0,40 C120,10 240,70 480,45 C720,20 960,65 1200,40 C1320,27 1400,50 1440,40 L1440,80 L0,80 Z"
           fill={color}
-        />
-        {/* Stroke décoratif légèrement décalé */}
-        <path
-          d="M0,36 C100,20 200,52 360,36 C520,20 640,50 780,34 C920,18 1040,48 1200,32 C1300,22 1380,38 1440,34"
-          fill="none"
-          stroke={color}
-          strokeWidth="3"
-          opacity="0.4"
         />
       </svg>
     </div>
