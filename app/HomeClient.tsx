@@ -23,22 +23,26 @@ export default function HomePage() {
 
 function Hero() {
   return (
-    <section className="relative bg-slate overflow-hidden" style={{ paddingTop: '100px', paddingBottom: '0' }} aria-label="Présentation Yannick Décors">
-      <PaintTextureBg />
+    <section className="relative bg-slate overflow-hidden" style={{ paddingTop: '60px', paddingBottom: '0' }} aria-label="Présentation Yannick Décors">
+      {/* Photo de fond */}
+      <div className="absolute inset-0">
+        <Image src="/yannick-decors-hero.png" alt="" fill className="object-cover opacity-50" aria-hidden="true" priority />
+        <div className="absolute inset-0 bg-slate/30" />
+      </div>
       <div className="container-site relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-end pb-20 pt-8">
+        <div className="grid gap-12 items-end pb-20 pt-8">
           <div>
             <motion.span className="section-tag text-terra/90" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
-  Artisan peintre indépendant · Normandie
-</motion.span>
-<motion.h1 className="font-title text-cream mb-6" style={{ fontSize: 'clamp(36px, 5vw, 58px)', lineHeight: '1.1' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
-  Votre habitat,<br /><span className="text-terra">peint avec soin.</span>
-</motion.h1>
-<motion.p className="text-cream/70 text-lg leading-relaxed mb-8 max-w-lg" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.35 }}>
-  Votre habitat peint avec soin par Yannick — artisan peintre indépendant basé à Saint&nbsp;Opportune&nbsp;du&nbsp;Bosc, dans l'Eure et la Seine-Maritime.{' '}
-  <strong className="text-cream">Devis gratuit.</strong>
-</motion.p>
-            <motion.div className="bg-terra/20 border-l-4 border-terra px-6 py-4 mb-8" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.5 }}>
+              Artisan peintre indépendant · Normandie
+            </motion.span>
+            <motion.h1 className="font-title text-cream mb-6" style={{ fontSize: 'clamp(36px, 5vw, 58px)', lineHeight: '1.1' }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
+              Votre habitat,<br /><span className="text-terra">peint avec soin.</span>
+            </motion.h1>
+            <motion.p className="text-cream/70 text-lg leading-relaxed mb-8 max-w-lg" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.35 }}>
+              Votre habitat peint avec soin par Yannick — artisan peintre indépendant basé à Saint&nbsp;Opportune&nbsp;du&nbsp;Bosc, dans l'Eure et la Seine-Maritime.{' '}
+              <strong className="text-cream">Devis gratuit.</strong>
+            </motion.p>
+            <motion.div className="bg-terra/20 border-l-4 border-terra px-6 py-4 mb-8 max-w-sm" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.5 }}>
               <p className="text-cream/70 text-sm font-body font-semibold uppercase tracking-wider mb-1">Appelez directement</p>
               <a href={PHONE_HREF} className="font-title text-cream hover:text-terra transition-colors" style={{ fontSize: '36px', lineHeight: '1' }} aria-label={`Appeler Yannick au ${PHONE_DISPLAY}`}>
                 {PHONE_DISPLAY}
@@ -49,9 +53,6 @@ function Hero() {
               <Link href="/realisations" className="btn-outline border-cream text-cream hover:bg-cream hover:text-slate text-lg">Voir les réalisations</Link>
             </motion.div>
           </div>
-          <motion.div className="hidden lg:block self-end" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.3 }}>
-            <HeroVisual />
-          </motion.div>
         </div>
       </div>
       <BrushDivider color="#F5F4F0" />
@@ -119,6 +120,7 @@ function Services() {
     </section>
   )
 }
+
 function CountUp({ target, suffix = '' }: { target: number; suffix?: string }) {
   const [count, setCount] = useState(0)
   const [hasAnimated, setHasAnimated] = useState(false)
@@ -153,12 +155,13 @@ function CountUp({ target, suffix = '' }: { target: number; suffix?: string }) {
     </p>
   )
 }
+
 function Stats() {
   const stats = [
     { value: 30, suffix: '+', label: "Années d'expérience", sub: 'depuis 1990' },
-{ value: 500, suffix: '+', label: 'Chantiers réalisés', sub: 'en Normandie' },
-{ value: 70, suffix: 'km', label: "Rayon d'intervention", sub: 'autour du Neubourg' },
-{ value: 100, suffix: '%', label: 'Satisfaction client', sub: 'avis vérifiés' },
+    { value: 500, suffix: '+', label: 'Chantiers réalisés', sub: 'en Normandie' },
+    { value: 70, suffix: 'km', label: "Rayon d'intervention", sub: 'autour du Neubourg' },
+    { value: 100, suffix: '%', label: 'Satisfaction client', sub: 'avis vérifiés' },
   ]
   return (
     <section className="bg-slate py-20">
@@ -213,22 +216,10 @@ function WhyYannick() {
 
 function GalleryPreview() {
   const items = [
-  { 
-    src: '/images/gallery/murs-plafond-escaliers-sainte-opportune.jpeg',
-    alt: 'Peinture murs, plafond et escaliers — Sainte-Opportune-du-Bosc',
-    label: 'Murs, plafond & escaliers — Sainte-Opportune'
-  },
-  { 
-    src: '/images/gallery/enduit-lasure-colombages-vitot.jpg',
-    alt: 'Enduit et lasure sur colombages normands — Vitot',
-    label: 'Enduit & colombages — Vitot'
-  },
-  { 
-    src: '/images/gallery/papier-peint-corneville.jpg',
-    alt: 'Pose papier peint et peinture intérieure — Corneville-sur-Risle',
-    label: 'Papier peint — Corneville-sur-Risle'
-  },
-]
+    { src: '/images/gallery/murs-plafond-escaliers-sainte-opportune.jpeg', alt: 'Peinture murs, plafond et escaliers — Sainte-Opportune-du-Bosc', label: 'Murs, plafond & escaliers — Sainte-Opportune' },
+    { src: '/images/gallery/enduit-lasure-colombages-vitot.jpg', alt: 'Enduit et lasure sur colombages normands — Vitot', label: 'Enduit & colombages — Vitot' },
+    { src: '/images/gallery/papier-peint-corneville.jpg', alt: 'Pose papier peint et peinture intérieure — Corneville-sur-Risle', label: 'Papier peint — Corneville-sur-Risle' },
+  ]
   return (
     <section className="bg-slate py-24">
       <BrushDivider color="#3D4451" flip className="mb-0 -mt-px" />
@@ -260,10 +251,10 @@ function GalleryPreview() {
 
 function Testimonials() {
   const temoignages = [
-  { text: "Yannick a réalisé la peinture de notre salon et notre chambre. Travail impeccable, ponctuel et très professionnel. Les finitions sont parfaites. Je recommande sans hésiter !", author: 'Marie-Claire D.', lieu: 'Le Neubourg', google: false },
-  { text: "Excellent artisan, sérieux et de confiance. Il a rénové l'ensemble de notre façade avec un résultat remarquable. Le devis était clair et respecté. Très satisfait.", author: 'Jean-Pierre L.', lieu: 'Évreux', google: false },
-  { text: "Merci à M.Pichou pour ces prestations de haute qualité. Je recommande fortement.", author: 'Hugo Garcia', lieu: 'Avis Google ⭐', google: true },
-]
+    { text: "Yannick a réalisé la peinture de notre salon et notre chambre. Travail impeccable, ponctuel et très professionnel. Les finitions sont parfaites. Je recommande sans hésiter !", author: 'Marie-Claire D.', lieu: 'Le Neubourg' },
+    { text: "Excellent artisan, sérieux et de confiance. Il a rénové l'ensemble de notre façade avec un résultat remarquable. Le devis était clair et respecté. Très satisfait.", author: 'Jean-Pierre L.', lieu: 'Évreux' },
+    { text: "Merci à M.Pichou pour ces prestations de haute qualité. Je recommande fortement.", author: 'Hugo Garcia', lieu: 'Avis Google ⭐' },
+  ]
   return (
     <section className="bg-cream py-24 border-t-2 border-border">
       <div className="container-site">
